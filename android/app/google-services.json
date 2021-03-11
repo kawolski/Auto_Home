@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1077517220455",
+    "project_id": "auto-home-9ffc9",
+    "storage_bucket": "auto-home-9ffc9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1077517220455:android:d4fed5ba05baa050d7f2c2",
+        "android_client_info": {
+          "package_name": "com.prashantraw.home_automation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1077517220455-7m3lmqkjdeoiun1ohgmuu7sqg8pe9dsq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpcZs7r0AoPzugSDqsOLFjfD3opKjKxb0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1077517220455-7m3lmqkjdeoiun1ohgmuu7sqg8pe9dsq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
