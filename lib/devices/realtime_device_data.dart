@@ -45,22 +45,30 @@ class RealDeviceData {
   }
 
   List<Widget> loadLights() {
+
     List<Widget> list = [];
+    // if(hid == null){
+    //   loadHID();
+    // }
+
     realDB.once().then((DataSnapshot snapshot) {
-      // print('Data : ${snapshot.value}');
-      // print('Extracting : ${snapshot.value[hid]['Light']}');
-      // print('HID : $hid');
+
       Map map = snapshot.value[hid]['Light'];
-      // print('List : $map');
+      print('List : $map');
       print("Play");
       map.forEach((name, value) {
-        list.add(SwitchCard(name: name, state: value['State']));
+        list.add(SwitchCard(name: name, state: value['State'],dbr: realDB.child(hid).child('Light').child(name),));
+
         // print('key : $key');
         // print('value : $value');
         // print('value["State"] : ${value['State']}');
       });
     });
     return list;
+  }
+
+  void toggleSwitch(){
+    print("Toggle Pressed");
   }
 
   List<Widget> loadSwitches() {
@@ -73,7 +81,7 @@ class RealDeviceData {
       // print('List : $map');
       print("Play");
       map.forEach((name, value) {
-        list.add(SwitchCard(name: name, state: value['State']));
+        list.add(SwitchCard(name: name, state: value['State'],dbr: realDB.child(hid).child('Switch').child(name)));
         // print('key : $key');
         // print('value : $value');
         // print('value["State"] : ${value['State']}');
