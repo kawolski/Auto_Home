@@ -30,6 +30,7 @@ class _RegisterState extends State<Register> {
         ? Loading()
         : Scaffold(
             backgroundColor: Colors.blue[50],
+            resizeToAvoidBottomInset: false,
             appBar: AppBar(
               elevation: 0,
               backgroundColor: Colors.blue[600],
@@ -121,6 +122,11 @@ class _RegisterState extends State<Register> {
                               loading = false;
                             });
                           }
+                        }
+                        else{
+                          setState(() {
+                            loading = false;
+                          });
                         }
                       },
                     ),

@@ -1,3 +1,5 @@
+import 'package:auto_home/screens/home/header.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_home/models/user.dart';
 import 'package:auto_home/screens/add_devices/add_devices.dart';
@@ -23,9 +25,10 @@ class _HomeState extends State<Home> {
     return StreamProvider<UserData>.value(
       value: DatabaseService(uid: user.uid).userData,
       child: Scaffold(
-        backgroundColor: Colors.blue[200],
+        backgroundColor: Colors.blue[100],
         appBar: AppBar(
           backgroundColor: Colors.blueAccent,
+          elevation: 0,
           actions: <Widget>[
             TextButton.icon(
               icon: Icon(
@@ -44,7 +47,34 @@ class _HomeState extends State<Home> {
             )
           ],
         ),
-        body: Select(),
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisSize: MainAxisSize.max,
+          children: <Widget>[
+
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.blueAccent,
+                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20),bottomRight: Radius.circular(20))
+              ),
+              height: 200,
+              child: Center(
+                child: Header(uid: user.uid)
+              ),
+
+            ),
+            Expanded(
+              child: SizedBox(
+                height: 200,
+                child: SingleChildScrollView(
+                  padding: EdgeInsets.only(right: 30),
+                  scrollDirection: Axis.vertical,
+                  child: Select(),
+                ),
+              ),
+            )
+          ],
+        ),
         drawer: Drawer(
           elevation: 1,
           child: ListView(

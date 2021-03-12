@@ -25,6 +25,7 @@ class _HomeProjectorState extends State<HomeProjector> {
     return StreamProvider.value(
       value: realDB.realDB.onValue,
       child: ListView(
+        shrinkWrap: true,
         children: <Widget>[
           ExpansionTile(
             maintainState: true,
@@ -39,31 +40,5 @@ class _HomeProjectorState extends State<HomeProjector> {
         ],
       ),
     );
-    // return StreamBuilder(
-    //   stream: realDB.realDB.onValue,
-    //   builder: (context,snapshot){
-    //     if(snapshot.hasData){
-    //       print("Snapshot Data : $snapshot");
-    //       // print(snapshot);
-    //       return ListView(
-    //         children: <Widget>[
-    //           ExpansionTile(
-    //             maintainState: true,
-    //             title: Text('Lights'),
-    //             children: realDB.loadLights()
-    //           ),
-    //           ExpansionTile(
-    //               maintainState: true,
-    //               title: Text('Switches'),
-    //               children: realDB.loadSwitches()
-    //           )
-    //         ],
-    //       );
-    //     }else{
-    //       print("No Data");
-    //       return Loading();
-    //     }
-    //   },
-    // );
   }
 }

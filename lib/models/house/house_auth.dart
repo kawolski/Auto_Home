@@ -44,7 +44,7 @@ class HouseAuth {
         dynamic result = await house.add({
           'House Name': houseName,
         });
-        DatabaseService(uid: uid).updateUserHouseID(result.id);
+        DatabaseService(uid: uid).updateUserHouseID(hid: result.id,hName: houseName);
         return House(hid: result.id, houseName: houseName);
       } catch (err) {
         error = err.toString();
@@ -70,7 +70,7 @@ class HouseAuth {
       // dynamic result = await house.add({
       //   'House Name': houseName,
       // });
-      DatabaseService(uid: uid).updateUserHouseID(hID);
+      DatabaseService(uid: uid).updateUserHouseID(hid: hID,hName: isHouse.data()['House Name']);
       return isHouse;
     }
   }

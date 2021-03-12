@@ -19,9 +19,12 @@ class DatabaseService {
     });
   }
 
-  Future updateUserHouseID(String hid) async {
+  Future updateUserHouseID({String hid, String hName}) async {
     print('Updating');
-    return await users.doc(uid).update({'House ID': hid});
+    return await users.doc(uid).update({
+      'House ID': hid,
+      'House Name' : hName
+    });
   }
 
   //User Data From Snapshot
@@ -29,7 +32,9 @@ class DatabaseService {
     return UserData(
         uid: uid,
         userName: snapshot.data()['User Name'],
-        hid: snapshot.data()['House ID']);
+        hid: snapshot.data()['House ID'],
+        houseName: snapshot.data()['House Name']
+    );
   }
 
   //  Get Stream

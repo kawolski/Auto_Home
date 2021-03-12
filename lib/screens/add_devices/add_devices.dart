@@ -18,9 +18,29 @@ class _SettingsState extends State<AddDevices> {
     final RealDeviceData realDB = RealDeviceData(uid: user.uid);
 
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.blueAccent,
+      ),
       body: Column(
         children: <Widget>[
+          Container(
+            decoration: BoxDecoration(
+                color: Colors.blueAccent,
+                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20),bottomRight: Radius.circular(20))
+            ),
+            height: 100,
+            child: Center(
+                child: Text(
+                  'Devices',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 30
+                  ),
+                )
+            ),
+
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
@@ -28,7 +48,7 @@ class _SettingsState extends State<AddDevices> {
                 flex: 1,
                 child: Container(
                     padding: EdgeInsets.symmetric(vertical: 50),
-                    color: Colors.yellowAccent.withOpacity(0.4),
+                    color: Colors.yellowAccent.withOpacity(0.5),
                     child: TextButton.icon(
                       icon: Icon(Icons.lightbulb_outline_sharp, size: 50),
                       label: Text("Light"),

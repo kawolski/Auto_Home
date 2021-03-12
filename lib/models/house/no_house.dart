@@ -17,7 +17,7 @@ class _NoHouseState extends State<NoHouse> {
         UserData(uid: null, userName: null, hid: null);
     String uName = user.userName ?? " ";
 
-    final String message = 'Hi, ${uName.split(" ")[0]}. Let\'s get Started';
+    final String message = 'Register Your House';
     final _houseAuth = HouseAuth(uid: user.uid);
     final _formkey = GlobalKey<FormState>();
     String hName = '';
@@ -46,81 +46,84 @@ class _NoHouseState extends State<NoHouse> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            TextButton.icon(
-              label: Text(message, style: TextStyle(color: Colors.white)),
-              icon: Icon(Icons.house, color: Colors.white, size: 40),
-              onPressed: () {
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        contentPadding:
-                            EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                        content: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            Text('Awaken Your House'),
-                            SizedBox(
-                              height: 50,
-                            ),
-                            Form(
-                              key: _formkey,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  TextFormField(
-                                    decoration: textInputDecoration.copyWith(
-                                        hintText: 'House Name'),
-                                    validator: (val) => val.isEmpty
-                                        ? 'Please Enter a Name'
-                                        : null,
-                                    onChanged: (val) {
-                                      setState(() {
-                                        hName = val;
-                                      });
-                                    },
-                                  ),
-                                  SizedBox(height: 20),
-                                  Text("OR"),
-                                  SizedBox(height: 20),
-                                  TextFormField(
-                                    decoration: textInputDecoration.copyWith(
-                                        hintText: 'House ID'),
-                                    validator: (val) => val.isEmpty
-                                        ? 'Please Enter a Name'
-                                        : null,
-                                    onChanged: (val) {
-                                      setState(() {
-                                        hID = val;
-                                      });
-                                    },
-                                  ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  ElevatedButton(
-                                    style: ButtonStyle(
-                                      backgroundColor:
-                                          MaterialStateProperty.all<Color>(
-                                              Colors.blue[600]),
-                                    ),
-                                    child: Text('Awaken'),
-                                    onPressed: () {
-                                      // if (_formkey.currentState.validate()) {
-                                      loadHouse();
-                                      Navigator.pop(context);
-                                      // }
-                                    },
-                                  ),
-                                ],
+            SizedBox(height: 100),
+            Center(
+              child: TextButton.icon(
+                label: Text(message, style: TextStyle(color: Colors.white,fontSize: 15)),
+                icon: Icon(Icons.house, color: Colors.white, size: 40),
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          contentPadding:
+                              EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                          content: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              Text('Awaken Your House'),
+                              SizedBox(
+                                height: 50,
                               ),
-                            ),
-                          ],
-                        ),
-                      );
-                    });
-              },
+                              Form(
+                                key: _formkey,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    TextFormField(
+                                      decoration: textInputDecoration.copyWith(
+                                          hintText: 'House Name'),
+                                      validator: (val) => val.isEmpty
+                                          ? 'Please Enter a Name'
+                                          : null,
+                                      onChanged: (val) {
+                                        setState(() {
+                                          hName = val;
+                                        });
+                                      },
+                                    ),
+                                    SizedBox(height: 20),
+                                    Text("OR"),
+                                    SizedBox(height: 20),
+                                    TextFormField(
+                                      decoration: textInputDecoration.copyWith(
+                                          hintText: 'House ID'),
+                                      validator: (val) => val.isEmpty
+                                          ? 'Please Enter a Name'
+                                          : null,
+                                      onChanged: (val) {
+                                        setState(() {
+                                          hID = val;
+                                        });
+                                      },
+                                    ),
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    ElevatedButton(
+                                      style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStateProperty.all<Color>(
+                                                Colors.blue[600]),
+                                      ),
+                                      child: Text('Awaken'),
+                                      onPressed: () {
+                                        // if (_formkey.currentState.validate()) {
+                                        loadHouse();
+                                        Navigator.pop(context);
+                                        // }
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      });
+                },
+              ),
             ),
           ],
         ),
