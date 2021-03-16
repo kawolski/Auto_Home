@@ -52,27 +52,37 @@ class _HomeState extends State<Home> {
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
 
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.blueAccent,
-                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20),bottomRight: Radius.circular(20))
-              ),
-              height: 200,
-              child: Center(
-                child: Header(uid: user.uid)
-              ),
-
-            ),
             Expanded(
               child: SizedBox(
-                height: 200,
+                height: MediaQuery.of(context).size.height * 1,
                 child: SingleChildScrollView(
-                  padding: EdgeInsets.only(right: 30),
                   scrollDirection: Axis.vertical,
-                  child: Select(),
-                ),
-              ),
-            )
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        decoration: BoxDecoration(
+                            color: Colors.blueAccent,
+                            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20),bottomRight: Radius.circular(20))
+                        ),
+                        height: 200,
+                        child: Center(
+                            child: Header(uid: user.uid)
+                        ),
+                      ),
+                      // Container(
+                      //   color: Colors.yellowAccent.withOpacity(0.6),
+                      //   height: MediaQuery.of(context).size.height * 1,
+                      // ),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(0, 0, 30, 0),
+                        child: Select()
+                      )
+                    ],
+                  )
+                )
+              )
+            ),
+
           ],
         ),
         drawer: Drawer(

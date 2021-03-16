@@ -1,3 +1,4 @@
+import 'package:auto_home/models/house/house.dart';
 import 'package:auto_home/models/user.dart';
 import 'package:auto_home/services/database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -10,7 +11,7 @@ class Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final data = Provider.of<UserData>(context);
+    final data = Provider.of<UserData>(context) ?? UserData(houseName: "??");
 
     String stat = data.houseName ?? null;
 
