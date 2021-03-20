@@ -1,3 +1,4 @@
+import 'package:auto_home/shared/Inloading.dart';
 import 'package:auto_home/shared/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_home/devices/realtime_device_data.dart';
@@ -21,24 +22,38 @@ class _HomeProjectorState extends State<HomeProjector> {
     final userData = Provider.of<UserData>(context);
     final RealDeviceData realDB = RealDeviceData(uid: userData.uid);
     realDB.loadHID();
+    // List<Widget> lightList = realDB.loadLights();
+    // while(lightList.isEmpty){
+    //   return Container();
+    // }
 
-    return StreamProvider.value(
-      value: realDB.realDB.onValue,
-      child: ListView(
-        shrinkWrap: true,
-        children: <Widget>[
-          ExpansionTile(
-            maintainState: true,
-            title: Text('Lights'),
-            children: realDB.loadLights(),
-          ),
-          ExpansionTile(
-            maintainState: true,
-            title: Text('Switches'),
-            children: realDB.loadSwitches(),
-          )
-        ],
-      ),
+    return FutureBuilder(
+      future: realDB.loadDevices(),
+      builder: (context,snapshot){
+        if(snapshot.connectionState == ConnectionState.done){
+          return Column(
+              children: snapshot.data
+          );
+        }else{
+          return InLoading();
+        }
+    },
     );
+    // return StreamProvider.value(
+    //   value: realDB.realDB.onValue,
+    //   child: ListView(
+    //     shrinkWrap: true,
+    //     children: <Widget>[
+    //       ExpansionTile(
+    //         title: Text('Lights'),
+    //         children: realDB.loadLights(),
+    //       ),
+    //       // ExpansionTile(
+    //       //   title: Text('Switches'),
+    //       //   children: realDB.loadSwitches(),
+    //       // )
+    //     ],
+    //   ),
+    // );
   }
 }

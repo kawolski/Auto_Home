@@ -53,6 +53,7 @@ class _HomeState extends State<Home> {
           children: <Widget>[
 
             Expanded(
+
               child: SizedBox(
                 height: MediaQuery.of(context).size.height * 1,
                 child: SingleChildScrollView(
@@ -69,14 +70,7 @@ class _HomeState extends State<Home> {
                             child: Header(uid: user.uid)
                         ),
                       ),
-                      // Container(
-                      //   color: Colors.yellowAccent.withOpacity(0.6),
-                      //   height: MediaQuery.of(context).size.height * 1,
-                      // ),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(0, 0, 30, 0),
-                        child: Select()
-                      )
+                      Select()
                     ],
                   )
                 )

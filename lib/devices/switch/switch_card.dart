@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class SwitchCard extends StatefulWidget {
   final String name;
-  String state;
+  final String state;
   final DatabaseReference dbr;
   SwitchCard({this.name, this.state,this.dbr});
 
@@ -12,8 +12,10 @@ class SwitchCard extends StatefulWidget {
 }
 
 class _UserCardState extends State<SwitchCard> {
+  String inState;
   @override
   Widget build(BuildContext context) {
+    inState =  inState == null ? widget.state : inState;
     return Padding(
       padding: EdgeInsets.only(top: 8),
       child: Column(
@@ -26,31 +28,47 @@ class _UserCardState extends State<SwitchCard> {
                 backgroundImage: AssetImage('assets/stock_profile.png'),
               ),
               title: Text(widget.name),
-              subtitle: Text(widget.state),
+              subtitle: Text(inState),
             ),
           ),
-          TextButton.icon(
-              onPressed: (){
-                String newState = widget.state == 'true' ? 'false' : 'true';
-                setState(() {
-                    print('Toggle Pressed');
-                    widget.dbr.update({
-                      'State' : newState
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              TextButton.icon(
+                  onPressed: (){
+                    String newState = inState == 'true' ? 'false' : 'true';
+                    setState(() {
+                      print('Toggle Pressed');
+                      widget.dbr.update({
+                        'State' : newState
+                      });
+                      inState = newState;
                     });
-                    widget.state = newState;
-                });
-              },
-              icon: Icon(
-                Icons.wb_shade,
-                color: Colors.white,
+                    print('Instate : $inState');
+                    print('New State : $newState');
+                  },
+                  icon: Icon(
+                    Icons.wb_shade,
+                    color: Colors.white,
+                  ),
+                  label: Text(
+                    "Toggle",
+                    style: TextStyle(
+                        color: Colors.white
+                    ),
+                  )
               ),
-              label: Text(
-                "Toggle",
-                style: TextStyle(
-                  color: Colors.white
+              IconButton(
+                icon: Icon(
+                  Icons.delete,
+                  color: Colors.white70,
                 ),
-              )
-          )
+                onPressed: (){
+                  print('Pressed');
+                },
+              ),
+            ]
+          ),
         ],
       ),
     );
