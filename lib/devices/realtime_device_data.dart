@@ -8,9 +8,10 @@ class RealDeviceData {
   final String uid;
   String hid;
   final realDB = FirebaseDatabase.instance.reference();
+  final Function reload;
   CollectionReference user = FirebaseFirestore.instance.collection("Users");
 
-  RealDeviceData({this.uid,this.hid});
+  RealDeviceData({this.reload,this.uid,this.hid});
 
   Future<bool> loadHID() async {
     // dynamic result = await user.doc(uid).get();//.data()['House ID'];
@@ -55,6 +56,7 @@ class RealDeviceData {
     //   await loadHID();
     // }
 
+    // realDB.onChildRemoved.listen((event) { }).onData((data) { reload();});
     await realDB.once().then((DataSnapshot snapshot){
       print('Going through device list');
       Map map = snapshot.value[hid];
@@ -64,7 +66,7 @@ class RealDeviceData {
         print('Dev Sublist : $dev');
         List<Widget> devList = [];
         dev.forEach((name, stat) {
-          devList.add(SwitchCard(name: name, state: stat['State'],dbr: realDB.child(hid).child(key).child(name)));
+          devList.add(SwitchCard(name: name, state: stat['State'],dbr: realDB.child(hid).child(key).child(name),removeDevice: removeDevice));
         });
 
         list.add(ExpansionTile(
@@ -73,6 +75,7 @@ class RealDeviceData {
         ));
       });
     });
+    // realDB.onChildAdded.listen((event) { }).onData((data) {reload();});
 
     return list;
 
@@ -91,7 +94,7 @@ class RealDeviceData {
         print('List : $map');
         print("Play");
         map.forEach((name, value) {
-          list.add(SwitchCard(name: name, state: value['State'],dbr: realDB.child(hid).child('Light').child(name),));
+          list.add(SwitchCard(name: name, state: value['State'],dbr: realDB.child(hid).child('Light').child(name),removeDevice: removeDevice,));
 
           // print('key : $key');
           // print('value : $value');
@@ -105,15 +108,15 @@ class RealDeviceData {
     return list;
   }
 
-  bool removeDevice(String type,String name){
+  Future<bool> removeDevice(DatabaseReference dbr)async{
     try{
-      realDB.child(hid).child(type).child(name).remove();
-      print('Success removal : $name of type $type');
+      await dbr.remove();
+      reload();
       return true;
     }catch(e){
       print(e.toString());
     }
-    return null;
+    return false;
   }
 
 
