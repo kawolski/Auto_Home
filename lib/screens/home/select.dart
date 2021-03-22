@@ -13,7 +13,7 @@ class Select extends StatelessWidget {
     if (userData.hid == null) {
       return NoHouse();
     } else {
-      return HomeProjector();
+      return HomeProjector(hid: userData.hid,);
     }
   }
 }

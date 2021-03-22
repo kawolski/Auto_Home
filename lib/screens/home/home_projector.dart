@@ -6,26 +6,19 @@ import 'package:provider/provider.dart';
 import 'package:auto_home/models/user.dart';
 
 class HomeProjector extends StatefulWidget {
+  final String hid;
+  HomeProjector({this.hid});
   @override
   _HomeProjectorState createState() => _HomeProjectorState();
 }
 
 class _HomeProjectorState extends State<HomeProjector> {
 
-  String status = 'House Found';
-
-  void test(bool b) {}
-
   @override
   Widget build(BuildContext context) {
 
     final userData = Provider.of<UserData>(context);
-    final RealDeviceData realDB = RealDeviceData(uid: userData.uid);
-    realDB.loadHID();
-    // List<Widget> lightList = realDB.loadLights();
-    // while(lightList.isEmpty){
-    //   return Container();
-    // }
+    final RealDeviceData realDB = RealDeviceData(uid: userData.uid,hid: widget.hid);
 
     return FutureBuilder(
       future: realDB.loadDevices(),

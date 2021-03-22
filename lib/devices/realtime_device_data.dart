@@ -6,28 +6,27 @@ import 'package:flutter/material.dart';
 
 class RealDeviceData {
   final String uid;
+  final String hid;
   final realDB = FirebaseDatabase.instance.reference();
   CollectionReference user = FirebaseFirestore.instance.collection("Users");
 
-  RealDeviceData({this.uid});
+  RealDeviceData({this.uid,this.hid});
 
-  String hid;
-
-  Future<bool> loadHID() async {
-    // dynamic result = await user.doc(uid).get();//.data()['House ID'];
-    try {
-      dynamic result = await user.doc(uid).get();
-      hid = result.data()['House ID'];
-      print('Got House ID');
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }
+  // Future<bool> loadHID() async {
+  //   // dynamic result = await user.doc(uid).get();//.data()['House ID'];
+  //   try {
+  //     dynamic result = await user.doc(uid).get();
+  //     hid = result.data()['House ID'];
+  //     print('HID Loaded');
+  //     return true;
+  //   } catch (e) {
+  //     return false;
+  //   }
+  // }
 
   void createData(String devName) async {
-    dynamic snapshot = await user.doc(uid).get();
-    hid = snapshot.data()['House ID'];
+    // dynamic snapshot = await user.doc(uid).get();
+    // hid = snapshot.data()['House ID'];
     realDB.child(hid).child(devName).set({'type': 'bool', 'state': 'active'});
   }
 
@@ -36,8 +35,8 @@ class RealDeviceData {
       String location,
       String state = 'false',
       String type}) async {
-    dynamic snapshot = await user.doc(uid).get();
-    hid = snapshot.data()['House ID'];
+    // dynamic snapshot = await user.doc(uid).get();
+    // hid = snapshot.data()['House ID'];
     realDB
         .child(hid)
         .child(type)
@@ -48,9 +47,9 @@ class RealDeviceData {
   Future<List<Widget>> loadDevices() async{
     List<Widget> list = [];
     print('Loading Devices');
-    if(hid == null){
-      await loadHID();
-    }
+    // if(hid == null){
+    //   await loadHID();
+    // }
 
     await realDB.once().then((DataSnapshot snapshot){
       print('Going through device list');
@@ -79,7 +78,7 @@ class RealDeviceData {
 
     List<Widget> list = [];
     print('Calling Lights');
-    await loadHID();
+    // await loadHID();
     realDB.once().then((DataSnapshot snapshot) {
 
       if(snapshot.value != null){
