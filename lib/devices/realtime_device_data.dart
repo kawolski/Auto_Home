@@ -7,10 +7,11 @@ import 'package:flutter/material.dart';
 class RealDeviceData {
   final String uid;
   final String hid;
+  final Function reload;
   final realDB = FirebaseDatabase.instance.reference();
   CollectionReference user = FirebaseFirestore.instance.collection("Users");
 
-  RealDeviceData({this.uid,this.hid});
+  RealDeviceData({this.uid,this.hid,this.reload});
 
   // Future<bool> loadHID() async {
   //   // dynamic result = await user.doc(uid).get();//.data()['House ID'];
@@ -50,6 +51,7 @@ class RealDeviceData {
     // if(hid == null){
     //   await loadHID();
     // }
+    realDB.onChildChanged.listen((event) {print('Changed');reload();});
 
     await realDB.once().then((DataSnapshot snapshot){
       print('Going through device list');
@@ -60,7 +62,7 @@ class RealDeviceData {
         print('Dev Sublist : $dev');
         List<Widget> devList = [];
         dev.forEach((name, stat) {
-          devList.add(SwitchCard(name: name, state: stat['State'],dbr: realDB.child(hid).child(key).child(name)));
+          devList.add(SwitchCard(name: name, state: stat['State'],dbr: realDB.child(hid).child(key).child(name),removeDevice: removeDevice,));
         });
 
         list.add(ExpansionTile(
@@ -74,75 +76,86 @@ class RealDeviceData {
 
   }
 
-  Future<List<Widget>> loadLights() async{
+  // Future<List<Widget>> loadLights() async{
+  //
+  //   List<Widget> list = [];
+  //   print('Calling Lights');
+  //   // await loadHID();
+  //   realDB.once().then((DataSnapshot snapshot) {
+  //
+  //     if(snapshot.value != null){
+  //       print('Null Snapshot = $snapshot');
+  //       Map map = snapshot.value[hid]['Light'];
+  //       print('List : $map');
+  //       print("Play");
+  //       map.forEach((name, value) {
+  //         list.add(SwitchCard(name: name, state: value['State'],dbr: realDB.child(hid).child('Light').child(name),));
+  //
+  //         // print('key : $key');
+  //         // print('value : $value');
+  //         // print('value["State"] : ${value['State']}');
+  //       });
+  //       return list;
+  //     }else{
+  //       print('Snapshot is null');
+  //     }
+  //   });
+  //   return list;
+  // }
 
-    List<Widget> list = [];
-    print('Calling Lights');
-    // await loadHID();
-    realDB.once().then((DataSnapshot snapshot) {
+  // bool removeDevice(String type,String name){
+  //   try{
+  //     realDB.child(hid).child(type).child(name).remove();
+  //     print('Success removal : $name of type $type');
+  //     return true;
+  //   }catch(e){
+  //     print(e.toString());
+  //   }
+  //   return null;
+  // }
 
-      if(snapshot.value != null){
-        print('Null Snapshot = $snapshot');
-        Map map = snapshot.value[hid]['Light'];
-        print('List : $map');
-        print("Play");
-        map.forEach((name, value) {
-          list.add(SwitchCard(name: name, state: value['State'],dbr: realDB.child(hid).child('Light').child(name),));
-
-          // print('key : $key');
-          // print('value : $value');
-          // print('value["State"] : ${value['State']}');
-        });
-        return list;
-      }else{
-        print('Snapshot is null');
-      }
-    });
-    return list;
-  }
-
-  bool removeDevice(String type,String name){
+  Future<bool> removeDevice(DatabaseReference realDB) async{
+    print('Removing Device');
     try{
-      realDB.child(hid).child(type).child(name).remove();
-      print('Success removal : $name of type $type');
+      await realDB.remove();
       return true;
     }catch(e){
       print(e.toString());
+      return false;
     }
-    return null;
   }
 
+  //
+  // void toggleSwitch(){
+  //   print("Toggle Pressed");
+  // }
 
-  void toggleSwitch(){
-    print("Toggle Pressed");
-  }
-
-  List<Widget> loadSwitches() {
-    List<Widget> list = [];
-    print('Calling Switches');
-    realDB.once().then((DataSnapshot snapshot) {
-      // print('Data : ${snapshot.value}');
-      // print('Extracting : ${snapshot.value[hid]['Light']}');
-      // print('HID : $hid');
-      if(snapshot != null) {
-        print('Null Snapshot = $snapshot');
-        Map map = snapshot.value[hid]['Switch'];
-        // print('List : $map');
-        print("Play");
-        map.forEach((name, value) {
-          list.add(SwitchCard(name: name,
-              state: value['State'],
-              dbr: realDB.child(hid).child('Switch').child(name)));
-          // print('key : $key');
-          // print('value : $value');
-          // print('value["State"] : ${value['State']}');
-        });
-      }else{
-        print('Snapshot is Null');
-      }
-
-    });
-    return list;
-  }
+  // List<Widget> loadSwitches() {
+  //   List<Widget> list = [];
+  //   print('Calling Switches');
+  //   realDB.once().then((DataSnapshot snapshot) {
+  //     // print('Data : ${snapshot.value}');
+  //     // print('Extracting : ${snapshot.value[hid]['Light']}');
+  //     // print('HID : $hid');
+  //     if(snapshot != null) {
+  //       print('Null Snapshot = $snapshot');
+  //       Map map = snapshot.value[hid]['Switch'];
+  //       // print('List : $map');
+  //       print("Play");
+  //       map.forEach((name, value) {
+  //         list.add(SwitchCard(name: name,
+  //             state: value['State'],
+  //             dbr: realDB.child(hid).child('Switch').child(name)));
+  //         // print('key : $key');
+  //         // print('value : $value');
+  //         // print('value["State"] : ${value['State']}');
+  //       });
+  //     }else{
+  //       print('Snapshot is Null');
+  //     }
+  //
+  //   });
+  //   return list;
+  // }
 
 }

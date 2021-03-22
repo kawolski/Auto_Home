@@ -5,7 +5,8 @@ class SwitchCard extends StatefulWidget {
   final String name;
   final String state;
   final DatabaseReference dbr;
-  SwitchCard({this.name, this.state,this.dbr});
+  final Function removeDevice;
+  SwitchCard({this.name, this.state,this.dbr,this.removeDevice});
 
   @override
   _UserCardState createState() => _UserCardState();
@@ -64,7 +65,7 @@ class _UserCardState extends State<SwitchCard> {
                   color: Colors.white70,
                 ),
                 onPressed: (){
-                  print('Pressed');
+                  widget.removeDevice(widget.dbr);
                 },
               ),
             ]

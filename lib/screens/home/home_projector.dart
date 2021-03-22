@@ -16,9 +16,10 @@ class _HomeProjectorState extends State<HomeProjector> {
 
   @override
   Widget build(BuildContext context) {
-
     final userData = Provider.of<UserData>(context);
-    final RealDeviceData realDB = RealDeviceData(uid: userData.uid,hid: widget.hid);
+    final RealDeviceData realDB = RealDeviceData(uid: userData.uid,hid: widget.hid,reload:(){setState(() {
+
+    });} );
 
     return FutureBuilder(
       future: realDB.loadDevices(),
