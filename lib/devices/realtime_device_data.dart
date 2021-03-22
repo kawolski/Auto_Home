@@ -6,23 +6,23 @@ import 'package:flutter/material.dart';
 
 class RealDeviceData {
   final String uid;
-  final String hid;
+  String hid;
   final realDB = FirebaseDatabase.instance.reference();
   CollectionReference user = FirebaseFirestore.instance.collection("Users");
 
   RealDeviceData({this.uid,this.hid});
 
-  // Future<bool> loadHID() async {
-  //   // dynamic result = await user.doc(uid).get();//.data()['House ID'];
-  //   try {
-  //     dynamic result = await user.doc(uid).get();
-  //     hid = result.data()['House ID'];
-  //     print('HID Loaded');
-  //     return true;
-  //   } catch (e) {
-  //     return false;
-  //   }
-  // }
+  Future<bool> loadHID() async {
+    // dynamic result = await user.doc(uid).get();//.data()['House ID'];
+    try {
+      dynamic result = await user.doc(uid).get();
+      hid = result.data()['House ID'];
+      print('HID Loaded');
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
 
   void createData(String devName) async {
     // dynamic snapshot = await user.doc(uid).get();
@@ -37,6 +37,10 @@ class RealDeviceData {
       String type}) async {
     // dynamic snapshot = await user.doc(uid).get();
     // hid = snapshot.data()['House ID'];
+    if(hid == null){
+      await loadHID();
+    }
+    print('HID = $hid');
     realDB
         .child(hid)
         .child(type)
