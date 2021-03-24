@@ -23,32 +23,24 @@ class _HomeProjectorState extends State<HomeProjector> {
     });});
 
     return FutureBuilder(
+      initialData: [InLoading()],
       future: realDB.loadDevices(),
-      builder: (context,snapshot){
-        if(snapshot.connectionState == ConnectionState.done){
-          return Column(
-              children: snapshot.data
+      builder: (context,builderSnapshot){
+
+        if(builderSnapshot.connectionState == ConnectionState.done){
+          return StreamBuilder(
+            stream: realDB.realDB.onValue,
+            builder: (context,snapshot){
+              print('Stream Snapshot : ${builderSnapshot.data}');
+              return Column(
+                children: builderSnapshot.data,
+              );
+            },
           );
         }else{
           return InLoading();
         }
     },
     );
-    // return StreamProvider.value(
-    //   value: realDB.realDB.onValue,
-    //   child: ListView(
-    //     shrinkWrap: true,
-    //     children: <Widget>[
-    //       ExpansionTile(
-    //         title: Text('Lights'),
-    //         children: realDB.loadLights(),
-    //       ),
-    //       // ExpansionTile(
-    //       //   title: Text('Switches'),
-    //       //   children: realDB.loadSwitches(),
-    //       // )
-    //     ],
-    //   ),
-    // );
   }
 }

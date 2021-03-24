@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class SwitchCard extends StatefulWidget {
   final String name;
-  final String state;
+  String state;
   final DatabaseReference dbr;
   final Function removeDevice;
   SwitchCard({this.name, this.state,this.dbr,this.removeDevice});

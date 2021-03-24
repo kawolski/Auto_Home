@@ -27,7 +27,7 @@ class _HomeState extends State<Home> {
       child: Scaffold(
         backgroundColor: Colors.blue[100],
         appBar: AppBar(
-          backgroundColor: Colors.blueAccent,
+          backgroundColor: Colors.lightBlueAccent,
           elevation: 0,
           actions: <Widget>[
             TextButton.icon(
@@ -62,7 +62,7 @@ class _HomeState extends State<Home> {
                     children: <Widget>[
                       Container(
                         decoration: BoxDecoration(
-                            color: Colors.blueAccent,
+                            color: Colors.lightBlueAccent,
                             borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20),bottomRight: Radius.circular(20))
                         ),
                         height: 200,
@@ -85,7 +85,7 @@ class _HomeState extends State<Home> {
             padding: EdgeInsets.all(0),
             children: <Widget>[
               DrawerHeader(
-                decoration: BoxDecoration(color: Colors.lightBlue),
+                decoration: BoxDecoration(color: Colors.lightBlueAccent),
                 child: Column(children: <Widget>[
                   CircleAvatar(
                     radius: 25,
