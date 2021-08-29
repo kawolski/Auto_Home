@@ -15,12 +15,22 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    MyAppTheme appTheme = MyAppTheme(isDark: false);
+    ThemeData appTheme = ThemeData(
+      primaryColor: Colors.red.withOpacity(1),
+      accentColor: Colors.red[900].withOpacity(1),
+      backgroundColor: Colors.white.withOpacity(1),
+      focusColor: Colors.red[100].withOpacity(1),
+      iconTheme: IconThemeData(
+        color: Colors.red[900].withOpacity(1)
+      ),
+      buttonColor: Colors.white,
+
+    );
     return StreamProvider<CustomUser>.value(
       value: AuthService().user,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        // theme: appTheme.themeData,
+        theme: appTheme,
         home: Wrapper(),
       ),
     );

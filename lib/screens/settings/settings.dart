@@ -10,7 +10,6 @@ class _SettingsState extends State<Settings> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blueAccent,
         elevation: 0,
       ),
       body: Column(children: <Widget>[
@@ -25,7 +24,7 @@ class _SettingsState extends State<Settings> {
                 children: <Widget>[
                   Container(
                     decoration: BoxDecoration(
-                        color: Colors.blueAccent,
+                        color: Theme.of(context).primaryColor,
                         borderRadius: BorderRadius.only(
                             bottomLeft: Radius.circular(20),
                             bottomRight: Radius.circular(20))),

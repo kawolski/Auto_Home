@@ -1,5 +1,4 @@
 import 'package:auto_home/screens/home/header.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_home/models/user.dart';
 import 'package:auto_home/screens/add_devices/add_devices.dart';
@@ -21,13 +20,19 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<CustomUser>(context);
-
+    DrawerTile empty = DrawerTile(
+      icon: Icons.clear,
+      text: " ",
+    );
+    bool val = true;
+    // final userData = Provider.of<UserData>(context) ??
+    //     UserData(uid: null, userName: null, hid: null);
     return StreamProvider<UserData>.value(
       value: DatabaseService(uid: user.uid).userData,
       child: Scaffold(
-        backgroundColor: Colors.blue[100],
+        // backgroundColor: Colors.blue[100],
         appBar: AppBar(
-          backgroundColor: Colors.lightBlueAccent,
+          // backgroundColor: Colors.lightBlueAccent,
           elevation: 0,
           actions: <Widget>[
             TextButton.icon(
@@ -62,7 +67,14 @@ class _HomeState extends State<Home> {
                     children: <Widget>[
                       Container(
                         decoration: BoxDecoration(
-                            color: Colors.lightBlueAccent,
+                            image: DecorationImage(
+                              image: AssetImage(
+                                'assets/back.png',
+                              ),
+                              fit: BoxFit.cover,
+                              colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.7),BlendMode.dstATop)
+                            ),
+                            color: Colors.black,
                             borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20),bottomRight: Radius.circular(20))
                         ),
                         height: 200,
@@ -85,7 +97,7 @@ class _HomeState extends State<Home> {
             padding: EdgeInsets.all(0),
             children: <Widget>[
               DrawerHeader(
-                decoration: BoxDecoration(color: Colors.lightBlueAccent),
+                decoration: BoxDecoration(color: Theme.of(context).primaryColor),
                 child: Column(children: <Widget>[
                   CircleAvatar(
                     radius: 25,
@@ -94,23 +106,23 @@ class _HomeState extends State<Home> {
                 ]),
               ),
               //  Add New Device
-              DrawerTile(
+              val != false ? DrawerTile(
                   icon: Icons.add,
                   text: "Add New Device",
                   function: () {
                     Navigator.pop(context);
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => AddDevices()));
-                  }),
+                  }) : empty,
               //  Settings
-              DrawerTile(
+              val != false ? DrawerTile(
                   icon: Icons.settings,
                   text: "Settings",
                   function: () {
                     Navigator.pop(context);
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => Settings()));
-                  }),
+                  }) : empty,
               //  Logout
               DrawerTile(
                   icon: Icons.perm_identity_rounded,
@@ -135,7 +147,7 @@ class _HomeState extends State<Home> {
                                       style: ButtonStyle(
                                         backgroundColor:
                                             MaterialStateProperty.all<Color>(
-                                                Colors.black54),
+                                                Theme.of(context).primaryColor),
                                       ),
                                       child: Text(
                                         "Yes",
@@ -150,7 +162,7 @@ class _HomeState extends State<Home> {
                                       style: ButtonStyle(
                                           backgroundColor:
                                               MaterialStateProperty.all<Color>(
-                                                  Colors.black54)),
+                                                  Theme.of(context).primaryColor)),
                                       child: Text(
                                         "No",
                                         style: TextStyle(color: Colors.white),

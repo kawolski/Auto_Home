@@ -48,77 +48,96 @@ class _NoHouseState extends State<NoHouse> {
           children: <Widget>[
             SizedBox(height: 100),
             Center(
-              child: TextButton.icon(
-                label: Text(message, style: TextStyle(color: Colors.white,fontSize: 15)),
-                icon: Icon(Icons.house, color: Colors.white, size: 40),
+              child: ElevatedButton(
+                child: Text(message, style: TextStyle(color: Colors.white,fontSize: 15,fontWeight: FontWeight.normal)),
+                style: ButtonStyle(
+                  padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.symmetric(horizontal: 20,vertical: 12)),
+                  backgroundColor:
+                  MaterialStateProperty.all<Color>(Theme.of(context).primaryColor),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)
+                  ))
+                ),
                 onPressed: () {
                   showDialog(
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
                           contentPadding:
-                              EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                          content: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              Text('Awaken Your House'),
-                              SizedBox(
-                                height: 50,
-                              ),
-                              Form(
-                                key: _formkey,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    TextFormField(
-                                      decoration: textInputDecoration.copyWith(
-                                          hintText: 'House Name'),
-                                      validator: (val) => val.isEmpty
-                                          ? 'Please Enter a Name'
-                                          : null,
-                                      onChanged: (val) {
-                                        setState(() {
-                                          hName = val;
-                                        });
-                                      },
-                                    ),
-                                    SizedBox(height: 20),
-                                    Text("OR"),
-                                    SizedBox(height: 20),
-                                    TextFormField(
-                                      decoration: textInputDecoration.copyWith(
-                                          hintText: 'House ID'),
-                                      validator: (val) => val.isEmpty
-                                          ? 'Please Enter a Name'
-                                          : null,
-                                      onChanged: (val) {
-                                        setState(() {
-                                          hID = val;
-                                        });
-                                      },
-                                    ),
-                                    SizedBox(
-                                      height: 20,
-                                    ),
-                                    ElevatedButton(
-                                      style: ButtonStyle(
-                                        backgroundColor:
-                                            MaterialStateProperty.all<Color>(
-                                                Colors.blue[600]),
-                                      ),
-                                      child: Text('Awaken'),
-                                      onPressed: () {
-                                        // if (_formkey.currentState.validate()) {
-                                        loadHouse();
-                                        Navigator.pop(context);
-                                        // }
-                                      },
-                                    ),
-                                  ],
+                              EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                          content: Container(
+                            width: MediaQuery.of(context).size.width*0.6,
+                            height: MediaQuery.of(context).size.height*0.4,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.black12,
+                                width: 2
+                              )
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                Text('Unlock Your Home'),
+                                SizedBox(
+                                  height: 50,
                                 ),
-                              ),
-                            ],
+                                Form(
+                                  key: _formkey,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      TextFormField(
+                                        decoration: textInputDecoration.copyWith(
+                                            hintText: 'House Name'),
+                                        validator: (val) => val.isEmpty
+                                            ? 'Please Enter a Name'
+                                            : null,
+                                        onChanged: (val) {
+                                          setState(() {
+                                            hName = val;
+                                          });
+                                        },
+                                      ),
+                                      SizedBox(height: 20),
+                                      Text("OR"),
+                                      SizedBox(height: 20),
+                                      TextFormField(
+                                        decoration: textInputDecoration.copyWith(
+                                            hintText: 'House ID'),
+                                        validator: (val) => val.isEmpty
+                                            ? 'Please Enter a Name'
+                                            : null,
+                                        onChanged: (val) {
+                                          setState(() {
+                                            hID = val;
+                                          });
+                                        },
+                                      ),
+                                      SizedBox(
+                                        height: 20,
+                                      ),
+                                      ElevatedButton(
+                                        style: ButtonStyle(
+                                          padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.symmetric(horizontal: MediaQuery.of(context).
+                                              size.width*0.2, vertical: 15)),
+                                          backgroundColor:
+                                              MaterialStateProperty.all<Color>(
+                                                  Theme.of(context).primaryColor),
+                                        ),
+                                        child: Text('Unlock'),
+                                        onPressed: () {
+                                          // if (_formkey.currentState.validate()) {
+                                          loadHouse();
+                                          Navigator.pop(context);
+                                          // }
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         );
                       });

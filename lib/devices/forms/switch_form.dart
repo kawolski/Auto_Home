@@ -27,7 +27,7 @@ class _DevicesState extends State<SwitchForm> {
         children: <Widget>[
           TextFormField(
             decoration: textInputDecoration.copyWith(hintText: 'Device Name'),
-            validator: (val) => val.isEmpty ? 'Please Enter a Name' : null,
+            validator: (val) => val.isEmpty ? 'Enter a Name' : null,
             onChanged: (val) {
               setState(() {
                 lightName = val;
@@ -37,7 +37,7 @@ class _DevicesState extends State<SwitchForm> {
           SizedBox(height: 20),
           TextFormField(
             decoration: textInputDecoration.copyWith(hintText: 'Location'),
-            validator: (val) => val.isEmpty ? 'Please Enter a Location' : null,
+            validator: (val) => val.isEmpty ? 'Enter a Location' : null,
             onChanged: (val) {
               setState(() {
                 location = val;
@@ -55,7 +55,6 @@ class _DevicesState extends State<SwitchForm> {
             child: Text('ADD'),
             onPressed: () {
               if (_formkey.currentState.validate()) {
-                // widget.realDB.createData(devName);
                 widget.realDB.createSwitch(
                     type: widget.type,
                     switchName: lightName,

@@ -29,11 +29,9 @@ class _RegisterState extends State<Register> {
     return loading
         ? Loading()
         : Scaffold(
-            backgroundColor: Colors.blue[50],
             resizeToAvoidBottomInset: false,
             appBar: AppBar(
               elevation: 0,
-              backgroundColor: Colors.blue[600],
               actions: <Widget>[
                 TextButton.icon(
                   icon: Icon(
@@ -104,13 +102,16 @@ class _RegisterState extends State<Register> {
                     ElevatedButton(
                       style: ButtonStyle(
                         backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.blue[600]),
+                            MaterialStateProperty.all<Color>(Theme.of(context).primaryColor),
                       ),
                       child: Text('REGISTER'),
                       onPressed: () async {
                         setState(() {
                           loading = true;
                         });
+                        print("$email...");
+                        email = email.replaceAll(" ", "");
+                        print("$email...");
                         if (_formkey.currentState.validate()) {
                           dynamic result =
                               await _auth.registerWithEmailAndPassword(
@@ -134,7 +135,7 @@ class _RegisterState extends State<Register> {
                     Text(
                       error,
                       style: TextStyle(
-                        color: Colors.redAccent,
+                        color: Theme.of(context).accentColor,
                         fontSize: 14,
                       ),
                     ),

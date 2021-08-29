@@ -28,10 +28,8 @@ class _SignInState extends State<SignIn> {
     return loading
         ? Loading()
         : Scaffold(
-            backgroundColor: Colors.blue[50],
             appBar: AppBar(
               elevation: 0,
-              backgroundColor: Colors.blue[600],
               actions: <Widget>[
                 TextButton.icon(
                   icon: Icon(
@@ -83,7 +81,7 @@ class _SignInState extends State<SignIn> {
                     ElevatedButton(
                       style: ButtonStyle(
                         backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.blue[600]),
+                            MaterialStateProperty.all<Color>(Theme.of(context).primaryColor),
                       ),
                       child: Text('Sign In'),
                       onPressed: () async {
@@ -109,7 +107,7 @@ class _SignInState extends State<SignIn> {
                     Text(
                       error,
                       style: TextStyle(
-                        color: Colors.redAccent,
+                        color: Theme.of(context).accentColor,
                         fontSize: 14,
                       ),
                     ),

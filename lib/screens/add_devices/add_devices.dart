@@ -1,3 +1,4 @@
+import 'package:auto_home/devices/sensor_form_tabs.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_home/devices/forms/switch_form.dart';
@@ -20,7 +21,6 @@ class _SettingsState extends State<AddDevices> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.blueAccent,
       ),
       body: Column(
         children: [
@@ -32,7 +32,7 @@ class _SettingsState extends State<AddDevices> {
                   children: <Widget>[
                     Container(
                       decoration: BoxDecoration(
-                          color: Colors.blueAccent,
+                          color: Theme.of(context).primaryColor,
                           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20),bottomRight: Radius.circular(20))
                       ),
                       height: 100,
@@ -115,6 +115,24 @@ class _SettingsState extends State<AddDevices> {
                                   ),
                                 );
                               });
+                        },
+                      ),
+                    ),
+                    Card(
+                      margin: EdgeInsets.fromLTRB(5, 6, 5, 0),
+                      child: ListTile(
+                        leading: Icon(
+                          Icons.account_tree_sharp,
+                          color: Colors.black87,
+                        ),
+                        title: Text('Sensors',
+                            style: TextStyle(
+                              color: Colors.grey,
+                            )),
+                        onTap: (){
+                          Navigator.push(context,MaterialPageRoute(
+                            builder: (context) => SensorFormTabs()
+                          ));
                         },
                       ),
                     ),
