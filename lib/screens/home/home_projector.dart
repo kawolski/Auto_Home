@@ -32,8 +32,23 @@ class _HomeProjectorState extends State<HomeProjector> {
             stream: realDB.realDB.onValue,
             builder: (context,snapshot){
               print('Stream Snapshot : ${builderSnapshot.data}');
-              return Column(
+              //  Changes made for grid view
+              // return Column(
+              //   children: builderSnapshot.data,
+              // );
+              return GridView.count(
+                physics: ScrollPhysics(),
+                shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  crossAxisCount: 2,
                 children: builderSnapshot.data,
+                // children: List.generate(8, (index){
+                //   return Card(
+                //     child: Container(
+                //       child: Center(child:Text("Card $index")),
+                //     ),
+                //   );
+                // }),
               );
             },
           );

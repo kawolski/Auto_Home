@@ -1,22 +1,24 @@
+import 'package:auto_home/devices/realtime_device_data.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
-class SwitchCard extends StatefulWidget {
+class TandH extends StatefulWidget {
   dynamic data;
-  String name;
   DatabaseReference dbr;
   Function removeDevice;
-  SwitchCard({this.name,this.data,this.dbr,this.removeDevice});
+  TandH({this.data,this.dbr,this.removeDevice});
   @override
-  _SwitchCardState createState() => _SwitchCardState();
+  _TandHState createState() => _TandHState();
 }
 
-class _SwitchCardState extends State<SwitchCard> {
+class _TandHState extends State<TandH> {
   var items = ["Delete","More"];
   String dropdownValue;
+
   @override
   Widget build(BuildContext context) {
+
     return StreamBuilder(
       stream: widget.dbr.onValue,
       builder: (context, snapshot) {
@@ -35,7 +37,7 @@ class _SwitchCardState extends State<SwitchCard> {
           child: Scaffold(
             appBar: AppBar(
               title: Text(
-                widget.name,
+                widget.data['Location'],
                 style: TextStyle(
                     color: Colors.black
                 ),
@@ -117,6 +119,11 @@ class _SwitchCardState extends State<SwitchCard> {
                               });
                         }else if(dropdownValue == items[1]){
                           //  More
+                          /*
+
+                          Code Under Construction
+
+                           */
                         }
                       });
                     },
@@ -125,24 +132,45 @@ class _SwitchCardState extends State<SwitchCard> {
               ],
             ),
             body: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.white60,
-              ),
-              child: Center(
-                child: GestureDetector(
-                  onTap: (){
-                    widget.dbr.update({
-                      'State' : widget.data['State'] == 'true' ? 'false' : 'true'
-                    });
-                  },
-                  child: Icon(
-                    Icons.power_settings_new,
-                    size: 100,
-                    color: widget.data['State'] == "true" ? Colors.lightGreenAccent: Colors.grey
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.white60,
+                ),
+                child: Center(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                          Icons.thermostat_rounded,
+                          size: 100,
+                          color: widget.data['State'] == "true" ? Colors.red[800]: Colors.grey
+                      ),
+                      Text(
+                        widget.data['TempC'],
+                        style: TextStyle(
+                          fontSize: 50,
+                          fontWeight: FontWeight.w200,
+                          color: Colors.black
+                        )
+                      ),
+                      SizedBox(width: 50,),
+                      Icon(
+                          Icons.grain,
+                          size: 40,
+                          color: widget.data['State'] == "true" ? Colors.blue[800]: Colors.grey
+                      ),
+                      Text(
+                          widget.data['Humid'],
+                          style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w300,
+                              color: Colors.black
+                          )
+                      )
+                    ],
                   ),
                 )
-              )
             ),
           ),
         );

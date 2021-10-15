@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.prashantraw.auto_home">
    <application
-        android:label="auto_home"
+        android:label="Auto Home"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

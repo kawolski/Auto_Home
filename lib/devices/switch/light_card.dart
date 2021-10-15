@@ -2,17 +2,17 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
-class SwitchCard extends StatefulWidget {
+class LightCard extends StatefulWidget {
   dynamic data;
   String name;
   DatabaseReference dbr;
   Function removeDevice;
-  SwitchCard({this.name,this.data,this.dbr,this.removeDevice});
+  LightCard({this.name,this.data,this.dbr,this.removeDevice});
   @override
-  _SwitchCardState createState() => _SwitchCardState();
+  _LightCardState createState() => _LightCardState();
 }
 
-class _SwitchCardState extends State<SwitchCard> {
+class _LightCardState extends State<LightCard> {
   var items = ["Delete","More"];
   String dropdownValue;
   @override
@@ -20,6 +20,7 @@ class _SwitchCardState extends State<SwitchCard> {
     return StreamBuilder(
       stream: widget.dbr.onValue,
       builder: (context, snapshot) {
+        // print("Data Changed Successfully...........");
         widget.dbr.onValue.forEach((element) {
           widget.data = element.snapshot.value;
         });
@@ -90,10 +91,7 @@ class _SwitchCardState extends State<SwitchCard> {
                                             ),
                                             onPressed: () async {
                                               Navigator.pop(context);
-                                              print('Deleting...');
-                                              // print('Currently Function is Disabled due to test reasons');
                                               await widget.removeDevice(widget.dbr);
-                                              print('Success Removal');
                                             },
                                           ),
                                           TextButton(
@@ -125,24 +123,24 @@ class _SwitchCardState extends State<SwitchCard> {
               ],
             ),
             body: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.white60,
-              ),
-              child: Center(
-                child: GestureDetector(
-                  onTap: (){
-                    widget.dbr.update({
-                      'State' : widget.data['State'] == 'true' ? 'false' : 'true'
-                    });
-                  },
-                  child: Icon(
-                    Icons.power_settings_new,
-                    size: 100,
-                    color: widget.data['State'] == "true" ? Colors.lightGreenAccent: Colors.grey
-                  ),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.white60,
+                ),
+                child: Center(
+                    child: GestureDetector(
+                      onTap: (){
+                        widget.dbr.update({
+                          'State' : widget.data['State'] == 'true' ? 'false' : 'true'
+                        });
+                      },
+                      child: Icon(
+                          Icons.lightbulb_outline_rounded,
+                          size: 100,
+                          color: widget.data['State'] == "true" ? Colors.amberAccent: Colors.grey
+                      ),
+                    )
                 )
-              )
             ),
           ),
         );
